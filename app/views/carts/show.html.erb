@@ -1,5 +1,11 @@
 <section class="cart-show">
 
+<% if enhanced_cart.length == 0 %>
+  <div class="alert alert-primary" role="alert">
+  Your cart is empty! Please return to the homepage to add some plants first.
+  </div>
+  <a href="/">Homepage</a>
+<% else %>
   <header class="page-header">
     <h1>My Cart</h1>
   </header>
@@ -48,5 +54,5 @@
       <% end %>
     </div>
   </div>
-
+<% end %>
 </section>
