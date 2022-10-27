@@ -1,3 +1,28 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+// Vendor
+// @import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+
+// App
+@import "products";
+
+// Fonts
+// Global
+body {
+  // padding-top: 70px;
+  font-size: 20px;
+  font-family: "Source Sans Pro", sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Montserrat", sans-serif;
+}
+// Bootstrap adjustments
+form.button_to {
+  display: inline;
+}
