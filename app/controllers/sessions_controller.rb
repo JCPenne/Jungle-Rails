@@ -11,6 +11,7 @@ class SessionsController < ApplicationController
       redirect_to '/'
     else
       redirect_to '/login', flash: { error: "Login attempt failed" }
+    end
   end
 
   def destroy
