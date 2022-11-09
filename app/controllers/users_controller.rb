@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to '/'
     else
-      redirect_to '/signup', flash: { error: 'Signup could not be completed' }
+      redirect_to '/signup', alert: "Sign up could not be completed, please try again"
     end
   end
 
