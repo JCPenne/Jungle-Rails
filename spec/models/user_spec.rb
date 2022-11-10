@@ -119,6 +119,37 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to include("Password is too short (minimum is 4 characters)")
     end
 
+    describe ".authenticate-with-credentials" do
+      it 'allows a user to login if they provide matching credentials' do
+        user = User.new(
+          first_name: "First",
+          last_name: "Last",
+          email: "first@last.com",
+          password: "Book",
+          password_confirmation: "Book"
+        )
+        user.save
+
+        authenticate = User.authenticate_with_credentials(user.email, user.password)
+
+        expect(authenticate).to eql(user)
+      end
+      it 'does not allow a user to login if they provide non-matching credentials' do
+        user = User.new(
+          first_name: "First",
+          last_name: "Last",
+          email: "first@last.com",
+          password: "Book",
+          password_confirmation: "Book"
+        )
+        user.save
+
+        authenticate = User.authenticate_with_credentials(user.email, "Boo")
+
+        expect(authenticate).to_not eql(user)
+      end
+    end
+
 
   end
 end
