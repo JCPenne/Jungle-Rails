@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
         )
       user.save
       
-      expect(user).to_not be_valid
+      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
     it 'does not create a new user if password is empty' do
       user = User.new(
@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
         )
       user.save
       
-      expect(user).to_not be_valid
+      expect(user.errors.full_messages).to include("Password can't be blank")
     end
     it 'does not create a new user if password_confirmation is empty' do
       user = User.new(
@@ -48,7 +48,7 @@ RSpec.describe User, type: :model do
         )
       user.save
       
-      expect(user).to_not be_valid
+      expect(user.errors.full_messages).to include("Password confirmation can't be blank")
     end
     it 'does not create a new user if email is not unique' do
       user1 = User.new(
@@ -68,7 +68,7 @@ RSpec.describe User, type: :model do
         )
       user2.save
       
-      expect(user2).to_not be_valid
+      expect(user2.errors.full_messages).to include("Email has already been taken")
     end
     it 'does not create a new user if first_name is empty' do
       user = User.new(
@@ -76,11 +76,11 @@ RSpec.describe User, type: :model do
         last_name: "Last", 
         email: "test@test.com",
         password: 'Book', 
-        password_confirmation: ''
+        password_confirmation: 'Book'
         )
       user.save
       
-      expect(user).to_not be_valid
+      expect(user.errors.full_messages).to include("First name can't be blank")
     end
     it 'does not create a new user if last_name is empty' do
       user = User.new(
@@ -88,23 +88,35 @@ RSpec.describe User, type: :model do
         last_name: "", 
         email: "test@test.com",
         password: 'Book', 
-        password_confirmation: ''
+        password_confirmation: 'Book'
         )
       user.save
       
-      expect(user).to_not be_valid
+      expect(user.errors.full_messages).to include("Last name can't be blank")
     end
     it 'does not create a new user if email is empty' do
       user = User.new(
-        first_name: "",
+        first_name: "First",
         last_name: "Last", 
         email: "",
         password: 'Book', 
-        password_confirmation: ''
+        password_confirmation: 'Book'
         )
       user.save
       
-      expect(user).to_not be_valid
+      expect(user.errors.full_messages).to include("Email can't be blank")
+    end
+    it 'does not create a new user if password is too short' do
+      user = User.new(
+        first_name: "First",
+        last_name: "Last", 
+        email: "test@test.com",
+        password: 'Boo', 
+        password_confirmation: 'Boo'
+        )
+      user.save
+      
+      expect(user.errors.full_messages).to include("Password is too short (minimum is 4 characters)")
     end
 
 
