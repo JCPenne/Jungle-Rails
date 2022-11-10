@@ -9,7 +9,8 @@ class User < ApplicationRecord
   end
 
   def self.authenticate_with_credentials(email,password)
-    user = User.find_by_email(email)
+    user_email = email.strip.downcase
+    user = User.find_by_email(user_email)
     
     if user.authenticate(password)
       user
